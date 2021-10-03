@@ -1,0 +1,168 @@
+<div id="page_content">
+    <jhi-alert></jhi-alert><modal-alert></modal-alert>
+    <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }" class="header-fixed">
+        <span class="route-header">
+            <a class="uk-text-primary" ui-sref="report-periodically" data-translate="admin.menu.report"></a>
+            <i class="uk-icon-arrow-circle-right"></i>
+            <a class="uk-text-primary"> Báo cáo số lượng định kỳ</a>
+        </span>
+        </br>
+        <div class="uk-margin-small-top">
+            <a has-any-authority="ROLE_SYSTEM_ADMIN, Periodically_Report_View" id="btnExportPdf" data-uk-modal="{target:'#modal_overflow'}"
+               class="md-btn md-btn-small md-btn-primary" ng-class="{ disabled : periodicallyReportInfo.periodicallyData.length == 0 }" ng-click="exportPdf()">
+                <span class="uk-text-bold" data-translate="global.button.exportPdf"></span>
+            </a>
+            <a has-any-authority="ROLE_SYSTEM_ADMIN, Periodically_Report_View" id="btnExportExcel" data-uk-modal="{target:'#modal_overflow'}"
+               class="md-btn md-btn-small md-btn-primary" ng-class="{ disabled : periodicallyReportInfo.periodicallyData.length == 0 }" ng-click="exportExcel()">
+                <span class="uk-text-bold" data-translate="global.button.exportExcel"></span>
+            </a>
+        </div>
+    </div>
+    <div id="page_content_inner">
+        <div class="md-card">
+            <div class="md-card-content">
+                <div class="uk-grid" data-uk-grid-margin="">
+                    <div class="uk-width-small-1-4">
+                        <b>Loại thiết bị</b>
+                        <input id="deviceType" name="deviceType"
+                               position="bottom"
+                               config="ComboBox['deviceType'].config"
+                               options="ComboBox['deviceType'].options"
+                               ng-model="searchInfo.deviceTypeIds"
+                               table="ComboBox['deviceType'].table"
+                               column="ComboBox['deviceType'].column"
+                               scope-controller="ComboBox['deviceType'].scope" selectize>
+                    </div>
+                    <div class="uk-width-small-1-4">
+                        <b>Dòng thiết bị</b>
+                        <input id="deviceModel" name="deviceModel"
+                               position="bottom"
+                               config="ComboBox['deviceModel'].config"
+                               options="ComboBox['deviceModel'].options"
+                               ng-model="searchInfo.modelCodes"
+                               table="ComboBox['deviceModel'].table"
+                               column="ComboBox['deviceModel'].column"
+                               scope-controller="ComboBox['deviceModel'].scope" selectize>
+                    </div>
+                    <div class="uk-width-small-1-4">
+                        <b>Tên hợp đồng</b>
+                        <input ng-model="searchInfo.contractName"
+                               class="md-input ng-isolate-scope md-input-processed"
+                               placeholder="tên hợp đồng" md-input="">
+                    </div>
+                </div>
+                <div class="uk-grid" data-uk-grid-margin="">
+                    <div  class="uk-width-small-1-4">
+                        <b ng-class="{'disabled-label': searchInfo.hasActive==0}">Ngày nhập từ</b>
+                        <div style="margin-top: 2px;">
+                            <input ng-class="{'custom-disabled': searchInfo.hasActive==0}" id="importStartDatePicker" placeholder="từ..." style="width: 100%;"/>
+                        </div>
+                    </div>
+                    <div class="uk-width-small-1-4">
+                        <b ng-class="{'disabled-label': searchInfo.hasActive==0}">Đến</b>
+                        <div style="margin-top: 2px;">
+                            <input ng-class="{'custom-disabled': searchInfo.hasActive==0}" id="importEndDatePicker" placeholder="đến..." style="width: 100%;"/>
+                        </div>
+                    </div>
+                    <div class="uk-width-small-1-4">
+                        <b>Khu vực</b>
+                        <input id="area" name="area"
+                               position="bottom"
+                               config="ComboBox['area'].config"
+                               options="ComboBox['area'].options"
+                               ng-model="searchInfo.areaCodes"
+                               table="ComboBox['area'].table"
+                               column="ComboBox['area'].column"
+                               scope-controller="ComboBox['area'].scope" selectize>
+                    </div>
+                </div>
+                <div class="uk-grid" data-uk-grid-margin="">
+
+                    <div class="uk-width-small-1-4">
+                        <b>Ngày kích hoạt từ</b>
+                        <div style="margin-top: 2px;">
+                            <input id="activeStartDatePicker" value="" style="width: 100%;"/>
+                        </div>
+                    </div>
+                    <div class="uk-width-small-1-4">
+                        <b>Đến</b>
+                        <div style="margin-top: 2px;">
+                            <input id="activeEndDatePicker"  style="width: 100%;"/>
+                        </div>
+                    </div>
+                    <div class="uk-width-small-1-2">
+                        <br/><button id="searchBtn" class="md-btn md-btn-small md-btn-primary" ng-class="{ disabled : isSearching }" ng-click="processSearch()">Tìm kiếm</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="md-card">
+            <div class="md-card-content">
+
+                <br>
+
+                <div class="uk-overflow-container uk-margin-bottom table-height-fixed">
+                    <table class="hoverTable uk-table uk-table-align-vertical tablesorter tablesorter-altair table-fixed" id="reportDevices" style="width:100%;">
+                        <thead >
+                        <tr class="uk-table-nowrap">
+                            <th class="center" style="width: 5%"><b>STT</b></th>
+                            <th class="center" style="width: 10%"><b>Khu vực</b></th>
+                            <th class="center" style="width: 40%;"><b>Hợp đồng</b></th>
+                            <th class="center" style="width: 15%"><b>Loại thiết bị</b></th>
+                            <th class="center" style="width: 15%"><b>Dòng thiết bị</b></th>
+                            <th class="center" style="width: 5%"><b>Tổng số TB được nhập</b></th>
+                            <th class="center" style="width: 5%"><b>Tổng số TB kích hoạt</b></th>
+                            <th class="center" style="width: 5%"><b>Số TB kích hoạt trong kỳ báo cáo</b></th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat-start="periodicallyReport in periodicallyReportInfo.periodicallyData track by $index" ng-value="rowspanNumber = countRowspan(periodicallyReport)">
+                            <td class="center" rowspan="{{rowspanNumber}}">{{$index + 1}}</td>
+                            <td rowspan="{{rowspanNumber}}">{{periodicallyReport.areaName}}</td>
+                        </tr>
+                        <tr ng-repeat-start="deviceType in periodicallyReport.contractData" ng-value="rowspanNumber1 = countRowspans(deviceType)">
+                            <td rowspan={{rowspanNumber1}}>{{deviceType.contractName}}</td>
+                        </tr>
+                        <tr ng-repeat-start="totalDataDevice in deviceType.totalDeviceType">
+                            <td rowspan={{totalDataDevice.totalData.length+1}}>{{totalDataDevice.deviceTypeName}}</td>
+                        </tr>
+                        <tr ng-repeat="totalData in totalDataDevice.totalData">
+                            <td>{{totalData.deviceModelName}}</td>
+                            <td class="center">{{totalData.totalImport}}</td>
+                            <td class="center">{{totalData.totalActive}}</td>
+                            <td class="center">{{totalData.numberOfActive}}</td>
+                        </tr>
+
+                        <tr ng-repeat-end></tr>
+                        <tr ng-repeat-end></tr>
+                        <tr ng-repeat-end></tr>
+                        </tbody>
+                    </table>
+                    <div ng-if="periodicallyReportInfo.periodicallyData.length == 0" style="background: white!important;color: black;" class="uk-alert uk-text-center uk-alert-info" data-uk-alert="">
+                        <span translate="global.messages.noResult"></span>
+                    </div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--EXPORT Modal-->
+    <div class="uk-modal" id="download_modal">
+        <div class="uk-modal-dialog uk-modal-dialog-small">
+            <div class="uk-modal-header" style="margin: 0 -24px 0px">
+                <span><span class="uk-modal-title">Xuất dữ liệu báo cáo</span><a class="uk-modal-close" style="float: right;"><i class="material-icons">&#xE14C;</i></a></span>
+            </div>
+            <hr>
+            <a href={{downloadUrl}} >Bấm vào đây để tải xuống</a>
+
+            <div class="uk-modal-footer uk-text-right">
+                <button  class="uk-modal-close md-btn  md-btn-default md-btn-small"><span class="uk-text-bold" data-translate="global.button.cancel"></span></button>
+            </div>
+        </div>
+    </div>
+    <button data-uk-modal="{target:'#download_modal'}" id="exportReport" ng-show="false"></button>
+</div>
+
+

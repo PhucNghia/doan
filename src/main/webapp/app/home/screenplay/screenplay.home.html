@@ -1,0 +1,107 @@
+<div id="page_content">
+    <jhi-alert></jhi-alert><modal-alert></modal-alert>
+    <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }" class="header-fixed">
+        <a class="uk-text-primary" style="font-size: larger" data-translate="admin.menu.screenplay"></a> <i
+            class="uk-icon-arrow-circle-right"></i>
+        <span> Danh Sách</span>
+        </br>
+        <div class="uk-margin-small-top">
+            <a has-any-authority="ROLE_SYSTEM_ADMIN, ROLE_FARM_ADMIN, Screenplay_Create" ui-sref="screenplay-create"
+               class="md-btn md-btn-primary md-btn-small"><span class="uk-text-bold"
+                                                                data-translate="global.button.create"></span></a>
+            <button has-any-authority ="ROLE_SYSTEM_ADMIN,ROLE_HOME_ADMIN, Screenplay_Delete" id="deleteBtn" class="md-btn md-btn-small hideElement" ng-click="defaultDelete()"><span class="uk-text-bold" data-translate="global.button.delete"></span></button>
+        </div>
+    </div>
+    <div id="page_content_inner">
+        <div class="md-card">
+            <div class="md-card-content">
+                <div class="uk-overflow-container uk-margin-bottom table-height-fixed">
+                    <table class="hoverTable uk-table uk-table-align-vertical  uk- table-nowrap tablesorter tablesorter-altair table-fixed" id="screenplayId">
+                        <thead>
+                        <tr>
+                            <th data-name="Select"><input type="checkbox" class="ts_checkbox_all"></th>
+                            <th style="width: 130px;"><th-content table="TABLES['screenplayId']" label="'Tên kịch bản'"         column="'name'"></th-content></th>
+                            <th style="width: 180px;"><th-content table="TABLES['screenplayId']" label="'Loại sản phẩm'"         column="'deviceTypeName'"></th-content></th>
+                            <th style="width: 200px;"><th-content table="TABLES['screenplayId']" label="'Dòng sản phẩm'"         column="'deviceModelName'"></th-content></th>
+                            <th><th-content table="TABLES['screenplayId']" label="'Ngày tạo'"               column="'created'"></th-content></th>
+                            <th><th-content table="TABLES['screenplayId']" label="'Ngày cập nhật'"         column="'updated'"></th-content></th>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><default-filter table="TABLES['screenplayId']" column="'name'"></td>
+                            <td>
+                                <selectize id="deviceTypeCbb"
+                                           position="bottom"
+                                           config="ComboBox['deviceTypeCbb'].config"
+                                           options="ComboBox['deviceTypeCbb'].options"
+                                           ng-model="ComboBox['deviceTypeCbb'].ngModel"
+                                           table="ComboBox['deviceTypeCbb'].table"
+                                           column="ComboBox['deviceTypeCbb'].column"
+                                           scope-controller="ComboBox['deviceTypeCbb'].scope">
+                                </selectize>
+                            </td>
+                            <td>
+                                <selectize id="deviceModelCbb"
+                                           position="bottom"
+                                           config="ComboBox['deviceModelCbb'].config"
+                                           options="ComboBox['deviceModelCbb'].options"
+                                           ng-model="ComboBox['deviceModelCbb'].ngModel"
+                                           ng-change="search()"
+                                           table="ComboBox['deviceModelCbb'].table"
+                                           column="ComboBox['deviceModelCbb'].column"
+                                           scope-controller="ComboBox['deviceModelCbb'].scope">
+                                </selectize>
+                            </td>
+                            <td><date-picker-filter table="TABLES['screenplayId']" column="'created'"></date-picker-filter></td>
+                            <td><date-picker-filter table="TABLES['screenplayId']" column="'updated'"></date-picker-filter></td>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="screenplay in screenplays" on-last-repeat ng-class="{'hoverRow': !screenplay.unRemove, 'custom-un-remove': screenplay.unRemove}" title="{{screenplay.unRemove}}">
+                            <td><input id="{{screenplay.id}}" type="checkbox" class="ts_checkbox" data-md-icheck icheck ng-model="row_select"></td>
+                            <td>
+                                <a has-any-authority="ROLE_SYSTEM_ADMIN, ROLE_SYSTEM_USER, ROLE_HOME_ADMIN, Screenplay_View_Detail" ui-sref="screenplay-detail({screenplayId: screenplay.id })">{{screenplay.name}} </a>
+                                <span do-not-have-authority="ROLE_SYSTEM_ADMIN, ROLE_SYSTEM_USER, Screenplay_View_Detail">{{screenplay.name}} </span>
+                            </td>
+                            <td>{{screenplay.deviceTypeName}}</td>
+                            <td>
+
+                                <div class="uk-width-small-2-3 uk-width-medium-9-10 parsley-row">
+										<span ng-repeat="deviceModel in screenplay.deviceModelNames">
+											<a class="md-btn md-btn-small custom-item" >{{deviceModel}}</a>
+										</span>
+                                </div>
+                            </td>
+                            <td>{{screenplay.created | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+                            <td>{{screenplay.updated | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ts_pager" id="table_screenplay_pager">
+                    <ul class="uk-pagination ts_pager">
+                        <li ng-click="selectPageClickHandle()" data-uk-tooltip title="{{selectPage}}">
+                            <input ng-change="selectPageHandle('screenplayId')" id="screenplay_selectize_page" type="text"
+                                   config="TABLES['screenplayId'].selectize_page_config" options="TABLES['screenplayId'].selectize_page_options"
+                                   ng-model="TABLES['screenplayId'].selectize_page" name="TABLES['screenplayId'].selectize_page" selectize>
+                        </li>
+                        <li><a href="javascript:void(0)" class="firstPage" ng-click="handleFirstPage('screenplayId')"><i class="uk-icon-angle-double-left"></i></a></li>
+                        <li><a href="javascript:void(0)" class="prevPage" ng-click="handlePreviousPage('screenplayId')"><i class="uk-icon-angle-left"></i></a></li>
+                        <li><span class="pageDisplay"></span></li>
+                        <li><a href="javascript:void(0)" class="nextPage" ng-click="handleNextPage('screenplayId')"><i class="uk-icon-angle-right"></i></a></li>
+                        <li><a href="javascript:void(0)" class="lastPage" ng-click="handleLastPage('screenplayId')"><i class="uk-icon-angle-double-right"></i></a></li>
+                        <li data-uk-tooltip title="{{pageSize}}">
+                            <input ng-change="selectPageNumHandle('screenplayId')" id="screenplay_selectize_pageNum" type="text"
+                                   config="TABLES['screenplayId'].selectize_pageNum_config" options="TABLES['screenplayId'].page_size_option"
+                                   ng-model="TABLES['screenplayId'].selectize_pageNum" name="TABLES['screenplayId'].selectize_pageNum" selectize>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

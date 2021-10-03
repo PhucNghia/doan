@@ -1,0 +1,96 @@
+<div id="page_content">
+    <form name="notification_form" id="notification_form" class="uk-form-stacked ng-pristine ng-invalid ng-invalid-required" novalidate="">
+        <div id="page_heading" data-uk-sticky="{ top: 48, media: 960 }">
+            <span class="route-header">
+                <a class="uk-text-primary" ui-sref="notificationManager" data-translate="admin.menu.notificationManager"></a>&nbsp;<i
+                    class="uk-icon-arrow-circle-right"></i>
+                <span>{{notification.name}}</span>
+            </span>
+            <br/>
+            <div class="uk-margin-small-top">
+                <button has-any-authority ="ROLE_SYSTEM_ADMIN,ROLE_HOME_ADMIN, Notification_Manager_Approve" class="md-btn md-btn-small" ng-click="browse()">Duyệt</button>
+                <a  has-any-authority ="ROLE_SYSTEM_ADMIN,ROLE_HOME_ADMIN,Notification_Manager_Update" ui-sref="notification-manager-edit({notificationId: notification.id})" class="md-btn md-btn-primary md-btn-small">
+                    <span class="uk-text-bold" data-translate="global.button.edit"></span>
+                </a>
+                <a  has-any-authority ="ROLE_SYSTEM_ADMIN,ROLE_HOME_ADMIN,Notification_Manager_Create" ui-sref="notification-manager-create" class="md-btn md-btn-primary md-btn-small">
+                    <span class="uk-text-bold" data-translate="global.button.create"></span>
+                </a>
+            </div>
+        </div>
+        <div id="page_content_inner">
+            <jhi-alert></jhi-alert>
+            <modal-alert></modal-alert>
+            <div class="md-card">
+                <div class="md-card-content">
+                    <div class="uk-grid " data-uk-grid-margin="">
+                        <div class="uk-width-medium-8-10">
+                            <div class="uk-grid">
+                                <div class="uk-width-small-1-3 uk-width-medium-2-10">
+                                    <div class="custom-label">
+                                        <label ></label> Tên Thông báo <span class="req"> *</span>
+                                    </div>
+                                </div>
+                                <div class="uk-width-small-2-3 uk-width-medium-8-10">
+                                    <div class="parsley-row">
+                                        <input readonly
+                                               class="md-input ng-isolate-scope md-input-processed"
+                                               type="text" ng-model="notification.name" input-long-text/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uk-grid">
+                                <div class="uk-width-small-1-3 uk-width-medium-2-10">
+                                    <div class="custom-label">
+                                        <label ></label> Loại thông báo <span class="req"> *</span>
+                                    </div>
+                                </div>
+                                <div class="uk-width-small-2-3 uk-width-medium-8-10">
+                                    <div class="parsley-row">
+                                        <input readonly
+                                               class="md-input ng-isolate-scope md-input-processed"
+                                               type="text" ng-model="notification.typeContent" input-long-text/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uk-grid">
+                                <div class="uk-width-small-1-3 uk-width-medium-2-10">
+                                    <div class="custom-label">
+                                        <label ></label> Nội dung thông báo <span class="req"> *</span>
+                                    </div>
+                                </div>
+                                <div class="uk-width-small-2-3 uk-width-medium-8-10">
+                                    <div class="parsley-row">
+                                        <textarea readonly
+                                               style="border-width: 1px 1px 1px; overflow-y: auto;"
+                                               class="md-input ng-isolate-scope md-input-processed" md-input=""
+                                               rows="3"
+                                               type="text" ng-model="notification.content" >
+
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uk-grid">
+                                <div class="uk-width-small-1-3 uk-width-medium-2-10">
+                                    <div class="custom-label">
+                                        <label ></label> Lý do
+                                    </div>
+                                </div>
+                                <div class="uk-width-small-2-3 uk-width-medium-8-10">
+                                    <div class="parsley-row">
+                                        <textarea ng-model="notification.reason"
+                                                  style="border-width: 1px 1px 1px; overflow-y: auto;"
+                                                  rows="2"
+                                                  class="md-input ng-isolate-scope md-input-processed" md-input="" readonly>
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+</div>
