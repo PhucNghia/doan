@@ -14,7 +14,8 @@
         }
         function getPage(params) {
             if($scope.input.areaIds == null) $scope.input.areaIds = []
-            return $http.get(HOST_GW + '/api/users/search-operator?areaIds=' + $scope.input.areaIds +"&roleIds=" + $scope.input.roleIds + "&" + params).then(function (response) {
+            // return $http.get(HOST_GW + '/api/users/search-operator?areaIds=' + $scope.input.areaIds +"&roleIds=" + $scope.input.roleIds + "&" + params).then(function (response) {
+            return $http.get(HOST_GW + '/api/users/search-operator?' + params).then(function (response) {
                 return response;
             });
         }

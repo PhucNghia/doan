@@ -74,21 +74,6 @@
                                                class="md-input ng-isolate-scope md-input-processed"
                                                type="text" ng-model="user.fullName" input-long-text/>
                                     </div>
-
-
-                                </div>
-                                <div class="uk-grid">
-                                    <div class="uk-width-medium-1-2">
-                                        <label class="label-bold" >Khu vực</label>
-                                        <div class="custom-box" ng-if="user.areas && user.areas.length >0">
-                                                <span ng-repeat="o in user.areas">
-                                                    <a  class="md-btn md-btn-small custom-item" >{{o.name}}</a>
-                                                </span>
-                                        </div>
-                                        <input readonly ng-if="!user.areas || user.areas.length==0"
-                                               class="md-input ng-isolate-scope md-input-processed"
-                                               type="text" ng-model="user.area" input-long-text/>
-                                    </div>
                                     <div class="uk-width-medium-1-2">
                                         <div>
                                             <label class="uk-form-label label-bold" data-translate="admin.user.column.roles"></label>
@@ -100,6 +85,7 @@
 
                                         </div>
                                     </div>
+
                                 </div>
 	                        </div>
                         </div>

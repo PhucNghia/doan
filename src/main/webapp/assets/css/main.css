@@ -12043,7 +12043,7 @@ a.editable-click.editable-disabled:hover {
   transform: rotate(-180deg);
 }
 #sidebar_main .sidebar_main_header {
-  height: 89px;
+  height: 210px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   margin-bottom: 20px;
   background-image: url("../img/sidebar_head_bg.png");

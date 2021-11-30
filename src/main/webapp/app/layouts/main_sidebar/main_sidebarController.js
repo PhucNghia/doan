@@ -113,6 +113,27 @@ angular
                         privilege:"ROLE_SYSTEM_ADMIN,ROLE_SYSTEM_USER,ROLE_HOME_ADMIN, Notification_Manager_View"
                     },
                     {
+                        id: 9,
+                        title: 'Quản lý Loại',
+                        icon: 'assignment',
+                        link: 'category',
+                        privilege:"ROLE_SYSTEM_ADMIN,ROLE_SYSTEM_USER,ROLE_HOME_ADMIN, Notification_Manager_View"
+                    },
+                    {
+                        id: 15,
+                        title: 'Quản lý kho',
+                        icon: 'payment',
+                        link: 'stock',
+                        privilege:"ROLE_SYSTEM_ADMIN,ROLE_SYSTEM_USER,ROLE_HOME_ADMIN, Notification_Manager_View"
+                    },
+                    {
+                        id: 16,
+                        title: 'Quản lý sản phẩm',
+                        icon: 'apps',
+                        link: 'product',
+                        privilege:"ROLE_SYSTEM_ADMIN,ROLE_SYSTEM_USER,ROLE_HOME_ADMIN, Notification_Manager_View"
+                    },
+                    {
                         id: 17,
                         title: 'admin.menu.screenplay',
                         icon: 'filter_none',
