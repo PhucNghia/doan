@@ -418,6 +418,93 @@
                     }]
                 }
             })
+            .state('order',{
+                parent: 'device-module',
+                url: '/order',
+                templateUrl: 'app/home/order/order.html',
+                controller: 'OrderController',
+                controllerAs: 'vm',
+                params: {
+                    orderId:null
+                },
+                data: {
+                    pageTitle: 'Hóa đơn',
+                    authorities: ['ROLE_SYSTEM_ADMIN','ROLE_SYSTEM_USER','ROLE_HOME_ADMIN'], //TODO change role,
+                    sideBarMenu: 'inventory'
+                },
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'lazy_ionRangeSlider',
+                            'lazy_tablesorter',
+                            'lazy_KendoUI',
+                            'lazy_parsleyjs',
+                            'app/home/order/order.controller.js'
+                        ]);
+                    }]
+                }
+            })
+            .state('order-detail',{
+                parent:'device-module',
+                url:'/order/{orderId:[0-9]{1,9}}/detail',
+                templateUrl:'app/home/order/order.detail.html',
+                data: {
+                    pageTitle: 'Hóa đơn',
+                    parentLink: 'order',
+                    authorities:['ROLE_SYSTEM_ADMIN','ROLE_SYSTEM_USER','ROLE_HOME_ADMIN', 'Device_Type_View_Detail'],
+                    sideBarMenu: 'inventory'
+                },
+                controller: 'OrderDetailController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'lazy_parsleyjs',
+                            'app/home/order/order.detail.controller.js'
+                        ]);
+                    }]
+                }
+
+            })
+            .state('order-create',{
+                parent:'device-module',
+                url:'/order/create',
+                templateUrl:'app/home/order/order.create.html',
+                data: {
+                    pageTitle: 'Hóa đơn',
+                    parentLink: 'order',
+                    authorities:['ROLE_SYSTEM_ADMIN','ROLE_HOME_ADMIN', 'Device_Type_Create'],
+                    sideBarMenu: 'inventory'
+                },
+                controller: 'OrderCreateController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'lazy_parsleyjs',
+                            'app/home/order/order.create.controller.js'
+                        ]);
+                    }]
+                }
+            })
+            .state('order-edit',{
+                url:'/order/{orderId:[0-9]{1,9}}/edit',
+                templateUrl:'app/home/order/order.edit.html',
+                parent:'device-module',
+                data: {
+                    pageTitle: 'Hóa đơn',
+                    parentLink: 'order',
+                    authorities:['ROLE_SYSTEM_ADMIN','ROLE_HOME_ADMIN', 'Device_Type_Update'],
+                    sideBarMenu: 'inventory'
+                },
+                controller: 'OrderEditController',
+                resolve: {
+                    deps: ['$ocLazyLoad', function($ocLazyLoad) {
+                        return $ocLazyLoad.load([
+                            'lazy_parsleyjs',
+                            'app/home/order/order.edit.controller.js'
+                        ]);
+                    }]
+                }
+            })
             .state('device-models',{
                 parent: 'device-module',
                 url: '/device-models',

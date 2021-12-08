@@ -24,6 +24,7 @@
                             <th class="center"><th-content table="TABLES['products']" label="'Tên kho'"  column="'stockId'"></th-content></th>
                             <th class="center"><th-content table="TABLES['products']" label="'Tên Loại'"  column="'categoryId'"></th-content></th>
                             <th class="center"><th-content table="TABLES['products']" label="'Giá'"  column="'price'"></th-content></th>
+                            <th class="center"><th-content table="TABLES['products']" label="'Số lượng'"  column="'quantity'"></th-content></th>
                             <th class="center"><th-content table="TABLES['products']" label="'Mô tả'"  column="'description'"></th-content></th>
                             <th class="center"><th-content table="TABLES['products']" label="'Ngày tạo'"  column="'created'"></th-content></th>
                             <th class="center custom-cl-header-tiny"><b data-translate="device.field.action"></b></th>
@@ -54,6 +55,7 @@
                                 </selectize>
                             </td>
                             <td><default-filter table="TABLES['products']" column="'price'"></td>
+                            <td><default-filter table="TABLES['products']" column="'quantity'"></td>
                             <td><default-filter table="TABLES['products']" column="'description'"></td>
                             <td><default-filter table="TABLES['products']" column="'created'"></td>
                             <td></td>
@@ -69,6 +71,7 @@
                             <td>{{obj.stockName}}</td>
                             <td>{{obj.categoryName}}</td>
                             <td>{{obj.price}}</td>
+                            <td>{{obj.quantity}}</td>
                             <td>{{obj.description}}</td>
                             <td>{{obj.created | date: 'dd-MM-yyyy HH:mm:ss'}}</td>
                             <td style="text-align: center">
