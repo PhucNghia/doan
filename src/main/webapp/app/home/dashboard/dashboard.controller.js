@@ -15,7 +15,7 @@
         };
 
         if(Principal.hasAnyAuthority(["ROLE_SYSTEM_ADMIN", "Customer_View"])){
-            $state.go('customers');
+            $state.go('category');
         }
     }
 

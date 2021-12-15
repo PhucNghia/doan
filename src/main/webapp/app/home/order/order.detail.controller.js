@@ -1,27 +1,29 @@
 (function () {
     'use strict';
     angular.module('erpApp')
-        .controller('ProductDetailController', ProductDetailController);
+        .controller('OrderDetailController', OrderDetailController);
 
-    ProductDetailController.$inject = ['$rootScope', '$scope', '$state', '$http','$stateParams','$timeout',
-        'AlertService', '$translate', 'TableController', 'ComboBoxController', 'AlertModalService', 'Product', '$window'];
+    OrderDetailController.$inject = ['$rootScope', '$scope', '$state', '$http','$stateParams','$timeout',
+        'AlertService', '$translate', 'TableController', 'ComboBoxController', 'AlertModalService', 'Order', '$window'];
 
-    function ProductDetailController($rootScope, $scope, $state, $http,$stateParams,$timeout,
-                                  AlertService, $translate, TableController, ComboBoxController, AlertModalService, Product, $window) {
+    function OrderDetailController($rootScope, $scope, $state, $http,$stateParams,$timeout,
+                                  AlertService, $translate, TableController, ComboBoxController, AlertModalService, Order, $window) {
         $scope.blockModal = null;
         $scope.blockUI = function () {
             if($scope.blockModal != null) $scope.blockModal.hide();
             $scope.blockModal = null;
             $scope.blockModal = UIkit.modal.blockUI('<div class=\'uk-text-center\'>Đang xử lý ...<br/><img class=\'uk-margin-top\' src=\'assets/img/spinners/spinner_success.gif\' alt=\'\'>');
         };
-        $scope.product = {};
+        $scope.order = {};
         $scope.editting = false;
         $scope.edit = function(state){
             $scope.editting = state
         }
         $scope.reload =function (){
-            Product.getOne($stateParams.productId).then(function (data) {
-                $scope.product = data;
+            debugger
+            Order.getOne($stateParams.orderId).then(function (data) {
+                debugger
+                $scope.order = data;
             })
         }
 

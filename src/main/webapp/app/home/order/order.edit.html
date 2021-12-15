@@ -26,7 +26,7 @@
             <modal-alert></modal-alert>
             <div class="md-card">
                 <div class="md-card-content">
-                    <div class="uk-grid" data-uk-grid-margin="">
+                    <div class="uk-grid " data-uk-grid-margin="">
                         <div class="uk-width-medium-8-10">
                             <div class="uk-grid">
                                 <div class="uk-width-small-1-3 uk-width-medium-1-5">
@@ -36,7 +36,7 @@
                                 </div>
                                 <div class="uk-width-small-2-3 uk-width-medium-4-5">
                                     <div class="parsley-row">
-                                        <input ng-model="product.name"
+                                        <input ng-model="order.name"
                                                required=""
                                                data-parsley-required-message="{{'global.messages.required' | translate}}"
                                                data-parsley-maxlength="255"
@@ -61,7 +61,7 @@
                                                position="bottom"
                                                config="ComboBox['stockCbb'].config"
                                                options="ComboBox['stockCbb'].options"
-                                               ng-model="product.stockId"
+                                               ng-model="order.stockId"
                                                table="ComboBox['stockCbb'].table"
                                                column="ComboBox['stockCbb'].column"
                                                scope-controller="ComboBox['stockCbb'].scope" selectize>
@@ -82,7 +82,7 @@
                                                position="bottom"
                                                config="ComboBox['categoryCbb'].config"
                                                options="ComboBox['categoryCbb'].options"
-                                               ng-model="product.categoryId"
+                                               ng-model="order.categoryId"
                                                table="ComboBox['categoryCbb'].table"
                                                column="ComboBox['categoryCbb'].column"
                                                scope-controller="ComboBox['categoryCbb'].scope" selectize>
@@ -96,7 +96,7 @@
                                 <div class="uk-width-small-2-3 uk-width-medium-4-5">
                                     <div class="parsley-row">
                                         <input type="text"
-                                               ng-model="product.price"
+                                               ng-model="order.price"
                                                ng-required=""
                                                data-parsley-required-message="{{'global.messages.required' | translate}}"
                                                data-parsley-pattern="^[1-9]\d*$"
@@ -115,7 +115,7 @@
                                 <div class="uk-width-small-2-3 uk-width-medium-4-5">
                                     <div class="parsley-row">
                                         <input type="text"
-                                               ng-model="product.quantity"
+                                               ng-model="order.quantity"
                                                ng-required=""
                                                data-parsley-required-message="{{'global.messages.required' | translate}}"
                                                data-parsley-pattern="^[1-9]\d*$"
@@ -135,7 +135,7 @@
                                 </div>
                                 <div class="uk-width-small-2-3 uk-width-medium-4-5">
                                     <div class="parsley-row">
-                                <textarea ng-model="product.description"
+                                <textarea ng-model="order.description"
                                           data-parsley-whitespace="trim"
                                           data-parsley-maxlength-message="{{'global.messages.maxLength1000' | translate}}"
                                           data-parsley-maxlength="1000"
@@ -146,23 +146,24 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="uk-width-medium-2-10" >
                             <div class="user_heading_avatar custom-avatar-center" data-provides="fileinput"
                                  ng-mouseenter="user.mouseEnter = true"
                                  ng-mouseleave="user.mouseEnter = false">
 
-                                <img ng-if="product.image || user.userAvatarBase64" class="uk-border-circle"
-                                     ng-src="{{user.userAvatarBase64 ? user.userAvatarBase64 : hostGW + product.image}}"
-                                     alt="product image" width="200" height="200"/>
-                                <img ng-if="!product.image && !user.userAvatarBase64" class="uk-border-circle"
-                                     ng-src="assets/img/avatars/avatar.jpg" alt="product image" width="200" height="200"/>
+                                <img ng-if="order.image || user.userAvatarBase64" class="uk-border-circle"
+                                     ng-src="{{user.userAvatarBase64 ? user.userAvatarBase64 : hostGW + order.image}}"
+                                     alt="device model avatar" width="200" height="200"/>
+                                <img ng-if="!order.image && !user.userAvatarBase64" class="uk-border-circle"
+                                     ng-src="assets/img/avatars/avatar.jpg" alt="device model avatar" width="200" height="200"/>
 
                                 <div class="user_avatar_controls">
                                     <span class="btn-file uk-form-file" title="Maximum size: 64K">
                                         <span class="fileinput-new"><i class="material-icons">&#xE2C6;</i></span>
                                         <input-upload create="true"></input-upload>
                                     </span>
-                                    <a ng-show="user.mouseEnter && (product.image || user.userAvatarBase64)"
+                                    <a ng-show="user.mouseEnter && (order.image || user.userAvatarBase64)"
                                        ng-click="deleteAvatar()" class="btn-file fileinput-exists js-uk-prevent"
                                        title="Delete"><i class="material-icons">&#xE5CD;</i></a>
                                 </div>
